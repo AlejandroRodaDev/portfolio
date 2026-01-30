@@ -1,0 +1,78 @@
+# ---------------------------
+# Dependencies
+# ---------------------------
+node_modules/
+.pnp/
+.pnp.js
+
+# ---------------------------
+# Next.js / Build outputs
+# ---------------------------
+.next/
+out/
+dist/
+build/
+.vercel/
+
+# ---------------------------
+# Logs
+# ---------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# ---------------------------
+# Runtime / cache
+# ---------------------------
+.cache/
+.eslintcache
+.turbo/
+.swc/
+.next/cache/
+
+# ---------------------------
+# Environment variables
+# (Mantén .env.example en git si quieres)
+# ---------------------------
+.env
+.env.*
+!.env.example
+
+# ---------------------------
+# TypeScript
+# ---------------------------
+*.tsbuildinfo
+
+# ---------------------------
+# Coverage / tests
+# ---------------------------
+coverage/
+.nyc_output/
+
+# ---------------------------
+# Editor / OS files
+# ---------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code (recomendado: mantener settings en repo si quieres)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+
+# ---------------------------
+# Misc
+# ---------------------------
+*.pem
+*.key

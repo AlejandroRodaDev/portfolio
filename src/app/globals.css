@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-accent: #ff3b30; /* rojo Apple */
+  --color-bg: #ffffff;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Inter, Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+}
