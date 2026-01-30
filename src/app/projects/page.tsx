@@ -1,111 +1,9 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import type * as React from "react";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/Container";
 import { projects, type Project } from "@/content/project";
-
-type As = keyof React.JSX.IntrinsicElements;
-
-type StaggerProps<T extends As = "div"> = {
-  as?: T;
-  className?: string;
-  children: React.ReactNode;
-  once?: boolean;
-} & Omit<React.ComponentPropsWithoutRef<T>, "as" | "children" | "className">;
-
-function Stagger<T extends As = "div">({
-  as,
-  className,
-  children,
-  once = true,
-  ...rest
-}: StaggerProps<T>) {
-  const reduce = useReducedMotion();
-  const Tag = (as ?? "div") as As;
-
-  // Si el usuario tiene "reduced motion", no animamos (accesibilidad)
-  if (reduce) {
-    const Comp: any = Tag;
-    return (
-      <Comp className={className} {...rest}>
-        {children}
-      </Comp>
-    );
-  }
-
-  const MotionTag: any = (motion as any)[Tag] ?? motion.div;
-
-  return (
-    <MotionTag
-      className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once, amount: 0.18 }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: {
-            staggerChildren: 0.06,
-            delayChildren: 0.02,
-          },
-        },
-      }}
-      {...rest}
-    >
-      {children}
-    </MotionTag>
-  );
-}
-
-type RevealProps<T extends As = "div"> = {
-  as?: T;
-  className?: string;
-  children: React.ReactNode;
-  delay?: number;
-} & Omit<React.ComponentPropsWithoutRef<T>, "as" | "children" | "className">;
-
-function Reveal<T extends As = "div">({
-  as,
-  className,
-  children,
-  delay = 0,
-  ...rest
-}: RevealProps<T>) {
-  const reduce = useReducedMotion();
-  const Tag = (as ?? "div") as As;
-
-  if (reduce) {
-    const Comp: any = Tag;
-    return (
-      <Comp className={className} {...rest}>
-        {children}
-      </Comp>
-    );
-  }
-
-  const MotionTag: any = (motion as any)[Tag] ?? motion.div;
-
-  return (
-    <MotionTag
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 10 },
-        show: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1], delay },
-        },
-      }}
-      style={{ willChange: "transform, opacity" }}
-      {...rest}
-    >
-      {children}
-    </MotionTag>
-  );
-}
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
@@ -131,7 +29,7 @@ function ExternalPill({
       rel="noreferrer"
       aria-label={ariaLabel}
       onClick={(e) => e.stopPropagation()}
-      className="inline-flex items-center rounded-full border border-black/10 bg-white px-3 py-1.5 text-sm text-black/70 hover:text-black hover:border-black/20 transition"
+      className="inline-flex items-center rounded-full border border-black/10 bg-white px-3 py-1.5 text-sm text-black/70 hover:text-black hover:border-black/20"
     >
       {children} <span className="ml-1">→</span>
     </a>
@@ -147,7 +45,9 @@ function MetaLine({ project }: { project: Project }) {
       {project.kind ? (
         <>
           {project.company ? <span className="mx-2 text-black/30">·</span> : null}
-          <span>{project.kind === "Company" ? "Company project" : "Personal project"}</span>
+          <span>
+            {project.kind === "Company" ? "Company project" : "Personal project"}
+          </span>
         </>
       ) : null}
     </div>
@@ -163,7 +63,6 @@ function ProjectModal({
 }) {
   const titleId = useId();
   const closeBtnRef = useRef<HTMLButtonElement | null>(null);
-  const reduce = useReducedMotion();
 
   useEffect(() => {
     if (!project) return;
@@ -194,25 +93,13 @@ function ProjectModal({
       aria-labelledby={titleId}
     >
       {/* Backdrop */}
-      <motion.div
+      <div
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"
         onClick={onClose}
-        initial={reduce ? { opacity: 1 } : { opacity: 0 }}
-        animate={reduce ? { opacity: 1 } : { opacity: 1 }}
-        transition={{ duration: 0.18, ease: "easeOut" }}
       />
 
       {/* Panel */}
-      <motion.div
-        className="relative w-full max-w-2xl rounded-3xl bg-white border border-black/10 shadow-xl"
-        initial={
-          reduce
-            ? { opacity: 1, y: 0, scale: 1 }
-            : { opacity: 0, y: 14, scale: 0.985 }
-        }
-        animate={reduce ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <div className="relative w-full max-w-2xl rounded-3xl bg-white border border-black/10 shadow-xl">
         <div className="flex items-start justify-between gap-4 p-6 sm:p-8">
           <div className="min-w-0">
             <p className="text-xs text-black/50">Project</p>
@@ -240,7 +127,7 @@ function ProjectModal({
           <button
             ref={closeBtnRef}
             onClick={onClose}
-            className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-black/70 hover:text-black hover:border-black/20 transition"
+            className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-black/70 hover:text-black hover:border-black/20"
             aria-label="Close"
           >
             ✕
@@ -251,32 +138,50 @@ function ProjectModal({
           <div className="px-6 sm:px-8 pb-2">
             <div className="flex flex-wrap gap-2">
               {project.links.web ? (
-                <ExternalPill href={project.links.web} ariaLabel={`${project.title} website`}>
+                <ExternalPill
+                  href={project.links.web}
+                  ariaLabel={`${project.title} website`}
+                >
                   Website
                 </ExternalPill>
               ) : null}
               {project.links.appStore ? (
-                <ExternalPill href={project.links.appStore} ariaLabel={`${project.title} on the App Store`}>
+                <ExternalPill
+                  href={project.links.appStore}
+                  ariaLabel={`${project.title} on the App Store`}
+                >
                   App Store
                 </ExternalPill>
               ) : null}
               {project.links.playStore ? (
-                <ExternalPill href={project.links.playStore} ariaLabel={`${project.title} on Google Play`}>
+                <ExternalPill
+                  href={project.links.playStore}
+                  ariaLabel={`${project.title} on Google Play`}
+                >
                   Google Play
                 </ExternalPill>
               ) : null}
               {project.links.repo ? (
-                <ExternalPill href={project.links.repo} ariaLabel={`${project.title} repository`}>
+                <ExternalPill
+                  href={project.links.repo}
+                  ariaLabel={`${project.title} repository`}
+                >
                   Repo
                 </ExternalPill>
               ) : null}
               {project.links.demo ? (
-                <ExternalPill href={project.links.demo} ariaLabel={`${project.title} demo`}>
+                <ExternalPill
+                  href={project.links.demo}
+                  ariaLabel={`${project.title} demo`}
+                >
                   Demo
                 </ExternalPill>
               ) : null}
               {project.links.article && !project.links.articles?.length ? (
-                <ExternalPill href={project.links.article} ariaLabel={`${project.title} article`}>
+                <ExternalPill
+                  href={project.links.article}
+                  ariaLabel={`${project.title} article`}
+                >
                   Article
                 </ExternalPill>
               ) : null}
@@ -291,7 +196,7 @@ function ProjectModal({
                     href={a.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-black/60 hover:text-black transition underline underline-offset-4 decoration-black/10 hover:decoration-black/20"
+                    className="text-xs text-black/60 hover:text-black underline underline-offset-4 decoration-black/10 hover:decoration-black/20"
                   >
                     {a.label} →
                   </a>
@@ -321,13 +226,13 @@ function ProjectModal({
           <div className="mt-8 flex justify-end">
             <button
               onClick={onClose}
-              className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm text-black/70 hover:text-black hover:border-black/20 transition"
+              className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm text-black/70 hover:text-black hover:border-black/20"
             >
               Close
             </button>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -339,7 +244,7 @@ export default function ProjectsPage() {
     <main>
       <section className="py-14 sm:py-20 bg-[#f5f5f7]">
         <Container>
-          <Reveal as="div" className="max-w-2xl">
+          <div className="max-w-2xl">
             <p className="text-xs sm:text-sm text-black/50">Projects</p>
 
             <h1 className="mt-3 text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.05]">
@@ -351,19 +256,18 @@ export default function ProjectsPage() {
               A curated selection of projects where I prioritize architecture,
               reliability, and clarity.
             </p>
-          </Reveal>
+          </div>
         </Container>
       </section>
 
       <section className="py-12 bg-white">
         <Container>
-          <Stagger className="grid gap-4">
+          <div className="grid gap-4">
             {projects.map((p, idx) => {
               const n = String(idx + 1).padStart(2, "0");
 
               return (
-                <Reveal
-                  as="article"
+                <article
                   key={p.slug}
                   role="button"
                   tabIndex={0}
@@ -371,7 +275,7 @@ export default function ProjectsPage() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") setSelected(p);
                   }}
-                  className="cursor-pointer rounded-3xl bg-white border border-black/5 p-6 sm:p-8 transition
+                  className="cursor-pointer rounded-3xl bg-white border border-black/5 p-6 sm:p-8
                              hover:border-black/10 hover:shadow-md hover:-translate-y-[1px] focus:outline-none
                              focus:ring-2 focus:ring-black/10"
                 >
@@ -409,17 +313,26 @@ export default function ProjectsPage() {
                         </ExternalPill>
                       ) : null}
                       {p.links?.appStore ? (
-                        <ExternalPill href={p.links.appStore} ariaLabel={`${p.title} on the App Store`}>
+                        <ExternalPill
+                          href={p.links.appStore}
+                          ariaLabel={`${p.title} on the App Store`}
+                        >
                           App Store
                         </ExternalPill>
                       ) : null}
                       {p.links?.playStore ? (
-                        <ExternalPill href={p.links.playStore} ariaLabel={`${p.title} on Google Play`}>
+                        <ExternalPill
+                          href={p.links.playStore}
+                          ariaLabel={`${p.title} on Google Play`}
+                        >
                           Google Play
                         </ExternalPill>
                       ) : null}
                       {p.links?.repo ? (
-                        <ExternalPill href={p.links.repo} ariaLabel={`${p.title} repository`}>
+                        <ExternalPill
+                          href={p.links.repo}
+                          ariaLabel={`${p.title} repository`}
+                        >
                           Repo
                         </ExternalPill>
                       ) : null}
@@ -448,7 +361,7 @@ export default function ProjectsPage() {
                           href={a.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-xs text-black/60 hover:text-black transition underline underline-offset-4 decoration-black/10 hover:decoration-black/20"
+                          className="text-xs text-black/60 hover:text-black underline underline-offset-4 decoration-black/10 hover:decoration-black/20"
                         >
                           {a.label} →
                         </a>
@@ -477,17 +390,17 @@ export default function ProjectsPage() {
                       View details <span className="ml-1">→</span>
                     </div>
                   </div>
-                </Reveal>
+                </article>
               );
             })}
-          </Stagger>
+          </div>
 
-          <Reveal as="div" className="mt-10 text-sm text-black/60">
+          <div className="mt-10 text-sm text-black/60">
             Want to get in touch?{" "}
-            <Link className="text-black/70 hover:text-black transition" href="/contact">
+            <Link className="text-black/70 hover:text-black" href="/contact">
               Contact me →
             </Link>
-          </Reveal>
+          </div>
         </Container>
       </section>
 
