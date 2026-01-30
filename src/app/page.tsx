@@ -11,7 +11,7 @@ export default function HomePage() {
       {/* HERO */}
       <section className="py-12 sm:py-16 bg-[#f5f5f7]">
         <Container>
-          <div className="grid items-center gap-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-12">
+<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div className="max-w-2xl">
               {/* Más claro el “quién” sin sobrecargar */}
               <p className="text-xs sm:text-sm text-black/50">
@@ -49,21 +49,21 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Avatar (desktop) */}
-            <div className="hidden sm:block shrink-0">
-              <div className="rounded-full bg-white p-2 ring-1 ring-black/10">
-                <div className="relative h-36 w-36 overflow-hidden rounded-full">
-                  <Image
-                    src="/avatar.jpg"
-                    alt={`${site.name} portrait`}
-                    fill
-                    sizes="144px"
-                    className="object-cover saturate-0 contrast-105 hover:saturate-100 transition duration-300"
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
+            {/* Avatar (responsive) */}
+<div className="shrink-0">
+  <div className="rounded-full border border-black/10 bg-white shadow-sm p-1.5 sm:p-2">
+    <div className="relative h-16 w-16 sm:h-32 sm:w-32 overflow-hidden rounded-full">
+      <Image
+        src="/avatar.jpg"
+        alt={`${site.name} portrait`}
+        fill
+        sizes="(max-width: 640px) 64px, 128px"
+        className="object-cover saturate-0 contrast-105 hover:saturate-100 transition"
+        priority
+      />
+    </div>
+  </div>
+</div>
           </div>
         </Container>
       </section>
