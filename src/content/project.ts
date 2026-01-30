@@ -87,7 +87,7 @@ export const projects: Project[] = [
   ],
   links: {
     demo: "https://TU-DOMINIO.com",
-    repo: "https://github.com/TU-USUARIO/TU-REPO",
+    repo: "https://github.com/AlejandroRodaDev/portfolio.git",
   },
 }
 ];

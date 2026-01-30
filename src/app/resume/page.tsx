@@ -174,8 +174,8 @@ export default function ResumePage() {
             ))}
           </div>
 
-          {/* CERTIFICATIONS */}
-          <SectionTitle accent="Certifications">Selected</SectionTitle>
+          {/* CERTIFICATIONS 
+           <SectionTitle accent="Certifications">Selected</SectionTitle>
           <div className="mt-6 rounded-2xl bg-white border border-black/5 p-6">
             {certifications.length === 0 ? (
               <p className="text-sm text-black/60">
@@ -213,7 +213,7 @@ export default function ResumePage() {
                 ))}
               </ul>
             )}
-          </div>
+          </div>*/}
 
           <div className="mt-12 text-sm text-black/50">
             <Link className="hover:text-black transition" href="/">
