@@ -3,10 +3,10 @@ import { Container } from "./Container";
 import { site } from "@/content/site";
 
 const nav = [
-  { href: "/projects", label: "Proyectos" },
-  { href: "/about", label: "Sobre mí" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
   { href: "/resume", label: "CV" },
-  { href: "/contact", label: "Contacto" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
