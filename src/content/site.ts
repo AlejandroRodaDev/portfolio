@@ -7,6 +7,6 @@ export const site = {
   links: {
     linkedin: "https://www.linkedin.com/in/alejandro-roda-san-jose",
     github: "https://github.com/AlejandroRodaDev",
-    email: "alejandrorodadeveloper@correo.com",
+    email: "alejandrorodadeveloper@gmail.com",
   },
 };

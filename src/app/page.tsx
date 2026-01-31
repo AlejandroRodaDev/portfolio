@@ -69,7 +69,7 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED */}
-      <section className="py-12">
+      <section className="py-9">
         <Container>
           <FeaturedProjects projects={projects} />
         </Container>

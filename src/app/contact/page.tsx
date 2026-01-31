@@ -1,6 +1,8 @@
 import { Container } from "@/components/Container";
 import { site } from "@/content/site";
-import { Mail, Linkedin, Github } from "lucide-react";
+import { SiLinkedin } from "react-icons/si";
+import { SiGmail} from "react-icons/si";
+import { SiGithub} from "react-icons/si";
 
 export default function ContactPage() {
   return (
@@ -29,7 +31,7 @@ export default function ContactPage() {
               href={`mailto:${site.links.email}`}
             >
               <div className="flex items-center gap-2 text-sm text-black/60">
-                <Mail className="h-4 w-4 text-black/70" />
+                <SiGmail className="h-4 w-4 text-black/70" />
                 <span>Email</span>
               </div>
               <div className="mt-1 font-medium text-zinc-950">{site.links.email}</div>
@@ -43,7 +45,7 @@ export default function ContactPage() {
               rel="noreferrer"
             >
               <div className="flex items-center gap-2 text-sm text-black/60">
-                <Linkedin className="h-4 w-4 text-black/70" />
+                <SiLinkedin   className="h-4 w-4 text-black/70" />
                 <span>LinkedIn</span>
               </div>
               <div className="mt-1 font-medium text-zinc-950">Open profile</div>
@@ -57,7 +59,7 @@ export default function ContactPage() {
               rel="noreferrer"
             >
               <div className="flex items-center gap-2 text-sm text-black/60">
-                <Github className="h-4 w-4 text-black/70" />
+                <SiGithub className="h-4 w-4 text-black/70" />
                 <span>GitHub</span>
               </div>
               <div className="mt-1 font-medium text-zinc-950">View repositories</div>

@@ -5,6 +5,8 @@ import { experience } from "@/content/experience";
 import { education } from "@/content/education";
 import { certifications } from "@/content/certifications";
 import { skills } from "@/content/skills";
+import { Download, Mail, Linkedin, ExternalLink } from "lucide-react";
+
 
 function SectionTitle({
   accent,
@@ -30,7 +32,9 @@ function Chip({ children }: { children: React.ReactNode }) {
 }
 
 function formatRange(start: string, end?: string) {
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthNames = [
+    "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
+  ];
 
   const fmt = (v: string) => {
     if (v === "Present") return "Present";
@@ -62,34 +66,40 @@ export default function ResumePage() {
               {site.role}. {site.headline}
             </p>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                className="rounded-full bg-zinc-950 px-5 py-2.5 text-sm text-white hover:bg-zinc-800 transition"
-                href={site.links.linkedin}
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn →
-              </a>
-              <a
-                className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm hover:border-black/20 transition"
-                href={`mailto:${site.links.email}`}
-              >
-                Email
-              </a>
-              <Link
-                className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm hover:border-black/20 transition"
-                href="/projects"
-              >
-                Projects
-              </Link>
-            </div>
+            <div className="mt-7 space-y-3">
+  {/* Row 1: CV actions */}
+  <div className="flex flex-wrap gap-3">
+    <a
+  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-sm text-white hover:bg-zinc-800 transition"
+  href="/cv/Alejandro_Roda_CV_EN.pdf"
+  target="_blank"
+  rel="noreferrer"
+>
+  <Download className="h-4 w-4" />
+  Download CV (EN)
+</a>
+
+    <a
+      className="inline-flex gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm hover:border-black/20 transition"
+      href="/cv/Alejandro_Roda_CV_ES.pdf"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Download className="h-4 w-4" />
+      CV (ES)
+    </a>
+  </div>
+</div>
+
+            <p className="mt-3 text-xs text-black/50">
+              Prefer English for international roles; Spanish available on request.
+            </p>
           </div>
         </Container>
       </section>
 
       {/* CONTENT */}
-      <section className="py-12">
+      <section className="py-3">
         <Container>
           {/* EXPERIENCE */}
           <SectionTitle accent="Experience">Selected roles</SectionTitle>
@@ -174,52 +184,7 @@ export default function ResumePage() {
             ))}
           </div>
 
-          {/* CERTIFICATIONS 
-           <SectionTitle accent="Certifications">Selected</SectionTitle>
-          <div className="mt-6 rounded-2xl bg-white border border-black/5 p-6">
-            {certifications.length === 0 ? (
-              <p className="text-sm text-black/60">
-                Add only relevant, verifiable certifications here.
-              </p>
-            ) : (
-              <ul className="space-y-3">
-                {certifications.map((c) => (
-                  <li key={c.name} className="text-sm">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                      <div className="text-black/80">
-                        <span className="font-medium">{c.name}</span>
-                        {c.issuer ? (
-                          <span className="text-black/60"> · {c.issuer}</span>
-                        ) : null}
-                      </div>
-                      <div className="text-black/60">
-                        {c.year ?? ""}
-                        {c.url ? (
-                          <>
-                            {" · "}
-                            <a
-                              className="hover:text-black transition"
-                              href={c.url}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              Verify →
-                            </a>
-                          </>
-                        ) : null}
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>*/}
-
-          <div className="mt-12 text-sm text-black/50">
-            <Link className="hover:text-black transition" href="/">
-              ← Back to home
-            </Link>
-          </div>
+          {/* CERTIFICATIONS ... (comentado como lo tenías) */}
         </Container>
       </section>
     </main>

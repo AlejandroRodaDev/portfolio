@@ -4,6 +4,9 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { projects, type Project } from "@/content/project";
+import { SiGithub} from "react-icons/si";
+import { SiApple} from "react-icons/si";
+import { SiAndroid} from "react-icons/si";
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
@@ -150,6 +153,8 @@ function ProjectModal({
                     href={project.links.appStore}
                     ariaLabel={`${project.title} on the App Store`}
                   >
+                  <SiApple className="mr-2 h-4 w-4 opacity-70" />
+
                     App Store
                   </ExternalPill>
                 ) : null}
@@ -158,6 +163,7 @@ function ProjectModal({
                     href={project.links.playStore}
                     ariaLabel={`${project.title} on Google Play`}
                   >
+                  <SiAndroid className="mr-2 h-4 w-4 opacity-70" />
                     Google Play
                   </ExternalPill>
                 ) : null}
@@ -166,6 +172,7 @@ function ProjectModal({
                     href={project.links.repo}
                     ariaLabel={`${project.title} repository`}
                   >
+                  <SiGithub className="mr-2 h-4 w-4 opacity-70" />
                     Repo
                   </ExternalPill>
                 ) : null}
