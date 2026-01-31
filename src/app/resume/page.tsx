@@ -181,9 +181,10 @@ export default function ResumePage() {
             ))}
           </div>
 
-          <div className="mt-12 text-sm text-black/50">
-            <Link className="hover:text-black transition" href="/">
-              ← Back to home
+          <div className="mt-10 text-sm text-black/60">
+            Want to get in touch?{" "}
+            <Link className="text-black/70 hover:text-black" href="/contact">
+              Contact me →
             </Link>
           </div>
         </Container>
