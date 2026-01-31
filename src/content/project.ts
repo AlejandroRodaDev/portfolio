@@ -86,7 +86,6 @@ export const projects: Project[] = [
     "SEO-friendly structure and clean content modeling (projects, experience, education).",
   ],
   links: {
-    demo: "https://TU-DOMINIO.com",
     repo: "https://github.com/AlejandroRodaDev/portfolio.git",
   },
 }

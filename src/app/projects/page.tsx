@@ -62,7 +62,6 @@ function ProjectModal({
   onClose: () => void;
 }) {
   const titleId = useId();
-  const closeBtnRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     if (!project) return;
@@ -75,7 +74,6 @@ function ProjectModal({
     };
 
     window.addEventListener("keydown", onKeyDown);
-    setTimeout(() => closeBtnRef.current?.focus(), 0);
 
     return () => {
       document.body.style.overflow = prevOverflow;
@@ -99,143 +97,151 @@ function ProjectModal({
       />
 
       {/* Panel */}
-      <div className="relative w-full max-w-2xl rounded-3xl bg-white border border-black/10 shadow-xl">
-        <div className="flex items-start justify-between gap-4 p-6 sm:p-8">
-          <div className="min-w-0">
-            <p className="text-xs text-black/50">Project</p>
+      <div
+        className="relative w-full max-w-2xl rounded-3xl bg-white border border-black/10 shadow-xl
+                   max-h-[85vh] overflow-hidden overscroll-contain"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Scroll area */}
+        <div
+          className="h-full max-h-[85vh] overflow-y-auto overscroll-contain"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          {/* Header (sin X) */}
+          <div className="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-black/5">
+            <div className="p-6 sm:p-8">
+              <p className="text-xs text-black/50">Project</p>
 
-            <h3
-              id={titleId}
-              className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950"
-            >
-              {project.title}
-            </h3>
+              <h3
+                id={titleId}
+                className="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-950"
+              >
+                {project.title}
+              </h3>
 
-            <MetaLine project={project} />
+              <MetaLine project={project} />
 
-            <p className="mt-3 text-sm sm:text-base text-black/70 leading-relaxed">
-              {project.summary}
-            </p>
+              <p className="mt-3 text-sm sm:text-base text-black/70 leading-relaxed">
+                {project.summary}
+              </p>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              {project.stack.map((t) => (
-                <Chip key={t}>{t}</Chip>
-              ))}
-            </div>
-          </div>
-
-          <button
-            ref={closeBtnRef}
-            onClick={onClose}
-            className="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white text-black/70 hover:text-black hover:border-black/20"
-            aria-label="Close"
-          >
-            ✕
-          </button>
-        </div>
-
-        {project.links ? (
-          <div className="px-6 sm:px-8 pb-2">
-            <div className="flex flex-wrap gap-2">
-              {project.links.web ? (
-                <ExternalPill
-                  href={project.links.web}
-                  ariaLabel={`${project.title} website`}
-                >
-                  Website
-                </ExternalPill>
-              ) : null}
-              {project.links.appStore ? (
-                <ExternalPill
-                  href={project.links.appStore}
-                  ariaLabel={`${project.title} on the App Store`}
-                >
-                  App Store
-                </ExternalPill>
-              ) : null}
-              {project.links.playStore ? (
-                <ExternalPill
-                  href={project.links.playStore}
-                  ariaLabel={`${project.title} on Google Play`}
-                >
-                  Google Play
-                </ExternalPill>
-              ) : null}
-              {project.links.repo ? (
-                <ExternalPill
-                  href={project.links.repo}
-                  ariaLabel={`${project.title} repository`}
-                >
-                  Repo
-                </ExternalPill>
-              ) : null}
-              {project.links.demo ? (
-                <ExternalPill
-                  href={project.links.demo}
-                  ariaLabel={`${project.title} demo`}
-                >
-                  Demo
-                </ExternalPill>
-              ) : null}
-              {project.links.article && !project.links.articles?.length ? (
-                <ExternalPill
-                  href={project.links.article}
-                  ariaLabel={`${project.title} article`}
-                >
-                  Article
-                </ExternalPill>
-              ) : null}
-            </div>
-
-            {project.links.articles?.length ? (
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <span className="text-xs text-black/50">Articles</span>
-                {project.links.articles.map((a) => (
-                  <a
-                    key={a.url}
-                    href={a.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-xs text-black/60 hover:text-black underline underline-offset-4 decoration-black/10 hover:decoration-black/20"
-                  >
-                    {a.label} →
-                  </a>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {project.stack.map((t) => (
+                  <Chip key={t}>{t}</Chip>
                 ))}
               </div>
-            ) : null}
-          </div>
-        ) : null}
-
-        <div className="p-6 sm:p-8">
-          <div className="text-xs font-medium text-black/50 tracking-tight">
-            Highlights
+            </div>
           </div>
 
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            {project.highlights.map((h) => (
-              <div
-                key={h}
-                className="rounded-2xl bg-[#f5f5f7] p-4 text-sm text-black/70 leading-relaxed"
-              >
-                <span className="mr-2 text-black/40">•</span>
-                {h}
+          {/* Links */}
+          {project.links ? (
+            <div className="px-6 sm:px-8 pb-2">
+              <div className="flex flex-wrap gap-2">
+                {project.links.web ? (
+                  <ExternalPill
+                    href={project.links.web}
+                    ariaLabel={`${project.title} website`}
+                  >
+                    Website
+                  </ExternalPill>
+                ) : null}
+                {project.links.appStore ? (
+                  <ExternalPill
+                    href={project.links.appStore}
+                    ariaLabel={`${project.title} on the App Store`}
+                  >
+                    App Store
+                  </ExternalPill>
+                ) : null}
+                {project.links.playStore ? (
+                  <ExternalPill
+                    href={project.links.playStore}
+                    ariaLabel={`${project.title} on Google Play`}
+                  >
+                    Google Play
+                  </ExternalPill>
+                ) : null}
+                {project.links.repo ? (
+                  <ExternalPill
+                    href={project.links.repo}
+                    ariaLabel={`${project.title} repository`}
+                  >
+                    Repo
+                  </ExternalPill>
+                ) : null}
+                {project.links.demo ? (
+                  <ExternalPill
+                    href={project.links.demo}
+                    ariaLabel={`${project.title} demo`}
+                  >
+                    Demo
+                  </ExternalPill>
+                ) : null}
+                {project.links.article && !project.links.articles?.length ? (
+                  <ExternalPill
+                    href={project.links.article}
+                    ariaLabel={`${project.title} article`}
+                  >
+                    Article
+                  </ExternalPill>
+                ) : null}
               </div>
-            ))}
+
+              {project.links.articles?.length ? (
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <span className="text-xs text-black/50">Articles</span>
+                  {project.links.articles.map((a) => (
+                    <a
+                      key={a.url}
+                      href={a.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-black/60 hover:text-black underline underline-offset-4 decoration-black/10 hover:decoration-black/20"
+                    >
+                      {a.label} →
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+
+          {/* Highlights */}
+          <div className="p-6 sm:p-8">
+            <div className="text-xs font-medium text-black/50 tracking-tight">
+              Highlights
+            </div>
+
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {project.highlights.map((h) => (
+                <div
+                  key={h}
+                  className="rounded-2xl bg-[#f5f5f7] p-4 text-sm text-black/70 leading-relaxed"
+                >
+                  <span className="mr-2 text-black/40">•</span>
+                  {h}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex justify-end">
+              <button
+                onClick={onClose}
+                className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm text-black/70 hover:text-black hover:border-black/20"
+              >
+                Close
+              </button>
+            </div>
           </div>
 
-          <div className="mt-8 flex justify-end">
-            <button
-              onClick={onClose}
-              className="rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm text-black/70 hover:text-black hover:border-black/20"
-            >
-              Close
-            </button>
-          </div>
+          <div className="h-6" />
         </div>
       </div>
     </div>
   );
 }
+
+
 
 export default function ProjectsPage() {
   const [selected, setSelected] = useState<Project | null>(null);
