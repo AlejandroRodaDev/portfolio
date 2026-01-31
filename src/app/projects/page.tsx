@@ -4,9 +4,12 @@ import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { projects, type Project } from "@/content/project";
-import { SiGithub} from "react-icons/si";
+import { SiApplenews, SiGithub, SiNewyorktimes, SiWeb3Dotjs, SiWebassembly, SiWorldhealthorganization} from "react-icons/si";
 import { SiApple} from "react-icons/si";
 import { SiAndroid} from "react-icons/si";
+import { BiSolidNavigation, BiSolidNews } from "react-icons/bi";
+import { FaGlobe } from "react-icons/fa";
+
 
 function Chip({ children }: { children: React.ReactNode }) {
   return (
@@ -145,6 +148,7 @@ function ProjectModal({
                     href={project.links.web}
                     ariaLabel={`${project.title} website`}
                   >
+                     <FaGlobe className="mr-2 h-4 w-4 opacity-70" />
                     Website
                   </ExternalPill>
                 ) : null}
@@ -189,6 +193,7 @@ function ProjectModal({
                     href={project.links.article}
                     ariaLabel={`${project.title} article`}
                   >
+                     <BiSolidNews className="mr-2 h-4 w-4 opacity-70" />
                     Article
                   </ExternalPill>
                 ) : null}
@@ -322,6 +327,7 @@ export default function ProjectsPage() {
                     <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                       {p.links?.web ? (
                         <ExternalPill href={p.links.web} ariaLabel={`${p.title} website`}>
+                     <FaGlobe className="mr-2 h-4 w-4 opacity-70" />
                           Website
                         </ExternalPill>
                       ) : null}
@@ -330,6 +336,7 @@ export default function ProjectsPage() {
                           href={p.links.appStore}
                           ariaLabel={`${p.title} on the App Store`}
                         >
+                        <SiApple className="mr-2 h-4 w-4 opacity-70" />
                           App Store
                         </ExternalPill>
                       ) : null}
@@ -338,6 +345,7 @@ export default function ProjectsPage() {
                           href={p.links.playStore}
                           ariaLabel={`${p.title} on Google Play`}
                         >
+                          <SiAndroid className="mr-2 h-4 w-4 opacity-70" />
                           Google Play
                         </ExternalPill>
                       ) : null}
@@ -346,6 +354,8 @@ export default function ProjectsPage() {
                           href={p.links.repo}
                           ariaLabel={`${p.title} repository`}
                         >
+                       <SiGithub className="mr-2 h-4 w-4 opacity-70" />
+
                           Repo
                         </ExternalPill>
                       ) : null}
@@ -356,6 +366,7 @@ export default function ProjectsPage() {
                       ) : null}
                       {p.links?.article && !p.links?.articles?.length ? (
                         <ExternalPill href={p.links.article} ariaLabel={`${p.title} article`}>
+                         <BiSolidNews className="mr-2 h-4 w-4 opacity-70" />
                           Article
                         </ExternalPill>
                       ) : null}
