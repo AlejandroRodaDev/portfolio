@@ -1,19 +1,20 @@
+"use client";
+
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { site } from "@/content/site";
 import { experience } from "@/content/experience";
 import { education } from "@/content/education";
-import { certifications } from "@/content/certifications";
 import { skills } from "@/content/skills";
-import { Download, Mail, Linkedin, ExternalLink } from "lucide-react";
-
+import { Download, Mail, Linkedin, Folder } from "lucide-react";
 
 function SectionTitle({
   accent,
   children,
 }: {
   accent?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <h2 className="mt-12 text-2xl sm:text-3xl font-semibold tracking-tight">
@@ -23,7 +24,7 @@ function SectionTitle({
   );
 }
 
-function Chip({ children }: { children: React.ReactNode }) {
+function Chip({ children }: { children: ReactNode }) {
   return (
     <span className="text-xs rounded-full border border-black/10 bg-white px-2.5 py-1 text-black/70">
       {children}
@@ -32,9 +33,7 @@ function Chip({ children }: { children: React.ReactNode }) {
 }
 
 function formatRange(start: string, end?: string) {
-  const monthNames = [
-    "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
-  ];
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
   const fmt = (v: string) => {
     if (v === "Present") return "Present";
@@ -67,29 +66,27 @@ export default function ResumePage() {
             </p>
 
             <div className="mt-7 space-y-3">
-  {/* Row 1: CV actions */}
-  <div className="flex flex-wrap gap-3">
-    <a
-  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-sm text-white hover:bg-zinc-800 transition"
-  href="/cv/Alejandro_Roda_CV_EN.pdf"
-  target="_blank"
-  rel="noreferrer"
->
-  <Download className="h-4 w-4" />
-  Download CV (EN)
-</a>
+              {/* Row 1: CV downloads */}
+              <div className="flex flex-wrap gap-3">
+                <a
+                  className="inline-flex items-center gap-2 rounded-full bg-zinc-950 px-5 py-2.5 text-sm text-white hover:bg-zinc-800 transition"
+                  href="/cv/Alejandro-Roda-CV-EN.pdf"
+                  download
+                >
+                  <Download className="h-4 w-4" />
+                  Download CV (EN)
+                </a>
 
-    <a
-      className="inline-flex gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm hover:border-black/20 transition"
-      href="/cv/Alejandro_Roda_CV_ES.pdf"
-      target="_blank"
-      rel="noreferrer"
-    >
-      <Download className="h-4 w-4" />
-      CV (ES)
-    </a>
-  </div>
-</div>
+                <a
+                  className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm hover:border-black/20 transition"
+                  href="/cv/Alejandro-Roda-CV-ES.pdf"
+                  download
+                >
+                  <Download className="h-4 w-4" />
+                  CV (ES)
+                </a>
+              </div>
+            </div>
 
             <p className="mt-3 text-xs text-black/50">
               Prefer English for international roles; Spanish available on request.
@@ -99,7 +96,7 @@ export default function ResumePage() {
       </section>
 
       {/* CONTENT */}
-      <section className="py-3">
+      <section className="py-12">
         <Container>
           {/* EXPERIENCE */}
           <SectionTitle accent="Experience">Selected roles</SectionTitle>
@@ -184,7 +181,11 @@ export default function ResumePage() {
             ))}
           </div>
 
-          {/* CERTIFICATIONS ... (comentado como lo tenías) */}
+          <div className="mt-12 text-sm text-black/50">
+            <Link className="hover:text-black transition" href="/">
+              ← Back to home
+            </Link>
+          </div>
         </Container>
       </section>
     </main>
