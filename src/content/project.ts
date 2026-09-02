@@ -42,7 +42,7 @@ export const projects: Project[] = [
       "Covered the core domain and responsive user journeys with Vitest and Playwright, and packaged the experience as an installable PWA.",
     ],
     links: {
-      demo: "https://cine-index.vercel.app",
+      web: "https://cineindex.es/",
     },
   },
  {
