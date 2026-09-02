@@ -10,9 +10,39 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl = new URL(
+  "https://alejandro-roda-portfolio.alexroda96.chatgpt.site"
+);
+
 export const metadata: Metadata = {
+  metadataBase: siteUrl,
   title: `${site.name} · ${site.role}`,
   description: site.headline,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: `${site.name} · ${site.role}`,
+    description: site.headline,
+    siteName: site.name,
+    locale: "en_US",
+    images: [
+      {
+        url: "/og.png",
+        width: 1729,
+        height: 910,
+        alt: `${site.name} — Backend Engineer`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} · ${site.role}`,
+    description: site.headline,
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

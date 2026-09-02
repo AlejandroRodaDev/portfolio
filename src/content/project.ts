@@ -19,6 +19,32 @@ export type Project = {
 
 
 export const projects: Project[] = [
+  {
+    slug: "cineindex",
+    title: "CineIndex (personal film library)",
+    kind: "Personal",
+    summary:
+      "A local-first film library for exploring TMDB, importing Letterboxd data, organizing lists, tracking viewing activity, and deciding what to watch.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "TMDB API",
+      "Vitest",
+      "Playwright",
+      "PWA",
+    ],
+    highlights: [
+      "Built catalog exploration, search, combined filters, detailed movie pages, watch providers, and server-only TMDB integrations.",
+      "Implemented local-first persistence plus optional account sync with Supabase Auth, PostgreSQL, and row-level security.",
+      "Added Letterboxd ZIP/CSV imports, a viewing diary, ratings, personalized picks, and an eight-film tournament called El Corte.",
+      "Covered the core domain and responsive user journeys with Vitest and Playwright, and packaged the experience as an installable PWA.",
+    ],
+    links: {
+      demo: "https://cine-index.vercel.app",
+    },
+  },
  {
   slug: "salud-informa",
   title: "Salud Informa (healthcare ecosystem)",
